@@ -166,5 +166,98 @@
       return "Invalid Input";
     }
   };
-//   console.log(processData([87]));
+  //   console.log(processData([87]));
+
+  //Never Type
+
+  const error = (message: string): never => {
+    throw new Error(message);
+  };
+  // console.log(error("I Watch bad video"));
+
+  //Generics with Functions and Interfaces
+  const removeDuplicate = <T>(values: T[]): T[] => {
+    return [...new Set(values)];
+  };
+
+  console.log(
+    removeDuplicate<any>([
+      2,
+      32,
+      2,
+      3,
+      23,
+      4,
+      2,
+      "hamim,",
+      "hamim",
+      "hamim",
+      "tamim",
+      6,
+      8,
+      6,
+    ])
+  );
+
+  // Asynchronous TypeScript and Type Aliases
+
+  type User1 = {
+    name: string;
+    age: number;
+  };
+  const fetchUser = (): Promise<User1> => {
+    return new Promise((resolve, reject) => {
+      const da: User1 = null;
+      if (da) {
+        setTimeout(() => {
+          resolve(da);
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          reject("Error ho gaiya mere vai");
+        }, 1000);
+      }
+    });
+  };
+
+  const fetchData = async () => {
+    const data = await fetchUser();
+    console.log(data);
+  };
+  // fetchData();
+
+  //Type Guards
+
+  function isString(value: unknown): value is string {
+    return typeof value === "string";
+  }
+  function isNumber(value: unknown): value is number {
+    return typeof value === "number";
+  }
+  const printUpperCase = (value: unknown) => {
+    if (isString(value)) {
+      console.log(value.toUpperCase());
+    } else {
+      console.log("Value is no a string");
+    }
+  };
+  // printUpperCase("true");
+
+  //Utility Types and Keyof Constraints
+
+  interface UserData {
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  function getObjProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+    return obj[key];
+  }
+  const userData: UserData = {
+    name: "Hamim",
+    age: 20,
+    address: "Dhaka",
+  };
+  // console.log(getObjProperty(userData, "address"));
 }
